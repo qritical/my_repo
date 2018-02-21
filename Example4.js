@@ -3,11 +3,15 @@
 
 
 class baseCharacter {
-    constructor(name, health, skills = {sneak: 0, attack: 0, persuade:0}) {
+    constructor(name, health) {
         this.name = name;
         this.maxHealth = health;
         this.currentHealth = health;
-        this.skills = skills;
+        this.skills = {
+            sneak: 0, 
+            attack: 0, 
+            persuade:0
+        };
     }
 };
 
@@ -15,8 +19,9 @@ class baseCharacter {
 // Define the HERO class
 
 class Hero extends baseCharacter {
-    constructor(name, heroType, health){
+    constructor(name, health, characterRole){
         super(name, health);
+        this.characterRole = characterRole;
         this.barriers = {
             attack : 10,
             sneak : 10,
@@ -36,10 +41,9 @@ class Hero extends baseCharacter {
 
 // Assign values based on user input, i.e. character class specific values
 
-const checkClass = (hero, heroType) => {
-    let lowerHeroType = heroType.toLowerCase();
-    console.log(heroType)
-    switch (lowerHeroType) {
+const checkClass = (hero, characterRole) => {
+    let lowerCharacterRole = characterRole.toLowerCase();
+    switch (lowerCharacterRole) {
         case 'warrior':
             hero.skills.attack +=3;
             hero.skills.sneak --;
@@ -57,9 +61,9 @@ const checkClass = (hero, heroType) => {
             hero.armorType.name = 'leather';
             break;
         default:
-            heroType = prompt('"${heroType}" is not a valid option. Please choose warrior, hunter or rogue.');
-            hero.heroType = heroType;
-            checkClass(hero, heroType);
+            characterRole = prompt('"${characterRole}" is not a valid option. Please choose warrior, hunter or rogue.');
+            hero.characterRole = characterRole;
+            checkClass(hero, characterRole);
             break;
     }
 };
@@ -84,29 +88,14 @@ const armorAssignment = (hero) => {
 // Ask for user inputs to create character
 
 let name = prompt('What is your character name?');
-let heroType = prompt('What is your class? (warrior, hunter or rogue)');
-
-const hero1 = new Hero(name, heroType, 100);
-checkClass(hero1, hero1.heroType);
-armorAssignment (hero1, hero1.heroType);
+let characterRole = prompt('What is your class? (warrior, hunter or rogue)');
 
 
+const mainHero = new Hero(name, 100, characterRole);
+checkClass(mainHero, mainHero.characterRole);
+armorAssignment (mainHero, mainHero.characterRole);
 
-// STORY CREATION SECTION **************************************************************************
 
+console.log(mainHero); 
 
-hero1.equippedWeapon = ({
-    name: prompt('which weapon do you choose? (Sword, Axe, Polearm)'),
-    minDamage: 1,
-    maxDamage: 6
-});
-
-console.log(hero1); 
-
-//*****************************************************
-
-const hero2 = new Hero('Thor', 'warrior', 100);
-checkClass(hero2, hero2.heroType);
-armorAssignment (hero2, hero2.heroType);
-console.log(hero2); 
 
