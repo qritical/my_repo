@@ -94,7 +94,7 @@ armorAssignment (mainHero, mainHero.characterRole);
 mainHero.equippedWeapon = ({
     name: prompt('which weapon do you choose? (Sword, Axe, Polearm)'),
     minDamage: 1,
-    maxDamage: 6
+    maxDamage: 6 
 });
 
 
