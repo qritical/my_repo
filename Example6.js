@@ -12,10 +12,13 @@ class baseCharacter {
 };
 
 
+
 // Define the HERO class
 
 class Hero extends baseCharacter {
-    constructor(name, health, skills, characterRole, equippedWeapon = {name : 'None', minDamage : null, maxDamage : null}, armorType = {name: 'None', mitigation: null}) {
+    constructor(name, health, skills, characterRole, 
+        equippedWeapon = {name : 'None', minDamage : null, maxDamage : null}, 
+        armorType = {name: 'None', mitigation: null}) {
         super(name, health, skills);
         this.characterRole = characterRole;
         this.equippedWeapon = equippedWeapon;
