@@ -11,11 +11,11 @@ class baseCharacter {
         this.currentHealth = health;
         this.skills = skills;
     }
-
     characterAttack () {
-        let blow= Math.floor(Math.random()*20)+1;
-        return blow;
-    };
+        let attackValue= (Math.floor(Math.random()*20)+1)+ this.skills.attack;
+        return attackValue;
+    }
+
 };
 
 // Define Monster class
@@ -47,6 +47,14 @@ class Hero extends baseCharacter {
             sneak : 10,
             persuade : 10
         };
+    }
+    characterSneak () {
+        let sneakValue= (Math.floor(Math.random()*20)+1)+ this.skills.sneak;
+        return sneakValue;
+    }
+    characterPersuade () {
+        let persuadeValue= (Math.floor(Math.random()*20)+1)+ this.skills.persuade;
+        return persuadeValue;
     }
 };
 
@@ -114,10 +122,12 @@ const mainHero = new Hero('Thor', 100, skills= {sneak: 5, attack: 4, persuade: 3
 //     minDamage: 1,
 //     maxDamage: 6 
 // });
-
+//
 
 
 console.log(mainHero); 
 
-let hit = mainHero.characterAttack();
-console.log(hit);
+let hit = mainHero.characterSneak();
+let blow = mainHero.characterAttack();
+let smile = mainHero.characterPersuade();
+console.log(hit, blow, smile);
