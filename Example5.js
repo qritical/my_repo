@@ -86,10 +86,17 @@ const armorAssignment = (hero) => {
 let name = prompt('What is your character name?');
 let characterRole = prompt('What is your class? (warrior, hunter or rogue)');
 
-
-const mainHero = new Hero(name, 100, skills= {sneak: 5, attack: 4, persuade: 3}, characterRole);
+mainHero = new Hero(name, 100, skills= undefined, characterRole);
+// const mainHero = new Hero(name, 100, skills= {sneak: 5, attack: 4, persuade: 3}, characterRole);
 checkClass(mainHero, mainHero.characterRole);
 armorAssignment (mainHero, mainHero.characterRole);
+
+mainHero.equippedWeapon = ({
+    name: prompt('which weapon do you choose? (Sword, Axe, Polearm)'),
+    minDamage: 1,
+    maxDamage: 6
+});
+
 
 
 console.log(mainHero); 
