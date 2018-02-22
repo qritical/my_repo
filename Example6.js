@@ -15,18 +15,15 @@ class baseCharacter {
 // Define the HERO class
 
 class Hero extends baseCharacter {
-    constructor(name, health, skills, characterRole, equippedWeapon = {name : 'None', minDamage : null, maxDamage : null}) {
+    constructor(name, health, skills, characterRole, equippedWeapon = {name : 'None', minDamage : null, maxDamage : null}, armorType = {name: 'None', mitigation: null}) {
         super(name, health, skills);
         this.characterRole = characterRole;
         this.equippedWeapon = equippedWeapon;
+        this.armorType= armorType;
         this.barriers = {
             attack : 10,
             sneak : 10,
             persuade : 10
-        };
-        this.armorType = {
-            name : 'None',
-            mitigation : null
         };
     }
 };
@@ -83,7 +80,7 @@ let name = prompt('What is your character name?');
 let characterRole = prompt('What is your class? (warrior, hunter or rogue)');
 
 // const mainHero = new Hero(name, 100, skills= undefined, characterRole);
-const mainHero = new Hero(name, 100, skills= {sneak: 5, attack: 4, persuade: 3}, characterRole, equippedWeapon= {name: 'Sword', minDamage: 3, maxDamage: 7});
+const mainHero = new Hero(name, 100, skills= {sneak: 5, attack: 4, persuade: 3}, characterRole, equippedWeapon= {name: 'Sword', minDamage: 3, maxDamage: 7}, armorType= {name: 'plate', mitigation: 5});
 checkClass(mainHero, mainHero.characterRole);
 armorAssignment (mainHero, mainHero.characterRole);
 
