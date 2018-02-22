@@ -15,7 +15,6 @@ class baseCharacter {
         let attackValue= (Math.floor(Math.random()*20)+1)+ this.skills.attack;
         return attackValue;
     }
-
 };
 
 // Define Monster class
@@ -29,6 +28,10 @@ class Monster extends baseCharacter {
             minDamage: minDamage,
             maxDamage: maxDamage
         }
+    }
+    characterDamage () {
+        let damageValue= (Math.floor(Math.random()*this.maxDamage)+this.minDamage);
+        return damageValue;
     }
 }
 
@@ -55,6 +58,17 @@ class Hero extends baseCharacter {
     characterPersuade () {
         let persuadeValue= (Math.floor(Math.random()*20)+1)+ this.skills.persuade;
         return persuadeValue;
+    }
+    characterDamage () {
+        let damageValue= this.equippedWeapon.minDamage + (Math.floor(Math.random()* (this.equippedWeapon.maxDamage-this.equippedWeapon.minDamage+1)));
+        return damageValue;
+    }
+    characterLevelUp (hero) {
+        hero.skills.attack ++;
+        hero.skills.persuade ++;
+        hero.skills.sneak ++;
+        let newLevel = hero.skills.attack
+        return newLevel;
     }
 };
 
@@ -127,7 +141,11 @@ const mainHero = new Hero('Thor', 100, skills= {sneak: 5, attack: 4, persuade: 3
 
 console.log(mainHero); 
 
-let hit = mainHero.characterSneak();
+// Testing returns below:
+
+let tiptoe = mainHero.characterSneak();
 let blow = mainHero.characterAttack();
 let smile = mainHero.characterPersuade();
-console.log(hit, blow, smile);
+let hit = mainHero.characterDamage();
+let level= mainHero.characterLevelUp(mainHero);
+console.log(tiptoe, blow, smile, hit, level);
