@@ -76,13 +76,16 @@ const armorAssignment = (hero) => {
 
 // Ask for user inputs to create character
 
-let name = prompt('What is your character name?');
-let characterRole = prompt('What is your class? (warrior, hunter or rogue)');
-
+// following 5 lines commented out, to change character creation from "user-input based" to programatically based.
+// let name = prompt('What is your character name?');
+// let characterRole = prompt('What is your class? (warrior, hunter or rogue)');
 // const mainHero = new Hero(name, 100, skills= undefined, characterRole);
-const mainHero = new Hero(name, 100, skills= {sneak: 5, attack: 4, persuade: 3}, characterRole, equippedWeapon= {name: 'Sword', minDamage: 3, maxDamage: 7}, armorType= {name: 'plate', mitigation: 5});
-checkClass(mainHero, mainHero.characterRole);
-armorAssignment (mainHero, mainHero.characterRole);
+// checkClass(mainHero, mainHero.characterRole);
+// armorAssignment (mainHero, mainHero.characterRole);
+
+
+const mainHero = new Hero('Thor', 100, skills= {sneak: 5, attack: 4, persuade: 3}, 'rogue', equippedWeapon= {name: 'Sword', minDamage: 3, maxDamage: 7}, armorType= {name: 'leather', mitigation: 5});
+
 
 // mainHero.equippedWeapon = ({
 //     name: prompt('which weapon do you choose? (Sword, Axe, Polearm)'),
