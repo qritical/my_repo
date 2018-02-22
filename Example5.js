@@ -3,15 +3,11 @@
 
 
 class baseCharacter {
-    constructor(name, health) {
+    constructor(name, health, skills = {sneak: 0, attack: 0, persuade:0}) {
         this.name = name;
         this.maxHealth = health;
         this.currentHealth = health;
-        this.skills = {
-            sneak: 0, 
-            attack: 0, 
-            persuade:0
-        };
+        this.skills = skills;
     }
 };
 
@@ -19,8 +15,8 @@ class baseCharacter {
 // Define the HERO class
 
 class Hero extends baseCharacter {
-    constructor(name, health, characterRole){
-        super(name, health);
+    constructor(name, health, skills, characterRole){
+        super(name, health, skills);
         this.characterRole = characterRole;
         this.barriers = {
             attack : 10,
@@ -91,11 +87,9 @@ let name = prompt('What is your character name?');
 let characterRole = prompt('What is your class? (warrior, hunter or rogue)');
 
 
-const mainHero = new Hero(name, 100, characterRole);
+const mainHero = new Hero(name, 100, skills= {sneak: 5, attack: 4, persuade: 3}, characterRole);
 checkClass(mainHero, mainHero.characterRole);
 armorAssignment (mainHero, mainHero.characterRole);
 
 
 console.log(mainHero); 
-
-
