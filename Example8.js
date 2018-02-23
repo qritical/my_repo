@@ -71,10 +71,10 @@ class Hero extends baseCharacter {
         return newLevel;
     }
     newEquippedWeapon (name, minDamage, maxDamage) {
-        hero.equippedWeapon.name = name;
-        hero.equippedWeapon.minDamage = minDamage;
-        hero.equippedWeapon.maxDamage = maxDamage;
-        return;
+        this.equippedWeapon.name = name;
+        this.equippedWeapon.minDamage = minDamage;
+        this.equippedWeapon.maxDamage = maxDamage;
+        console.log(this.name + ' has equipped a new '+ name);
     }
 };
 
@@ -123,6 +123,7 @@ const armorAssignment = (hero) => {
             break;
        }
 };
+
 
 // Ask for user inputs to create character
 
