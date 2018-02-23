@@ -135,9 +135,9 @@ const armorAssignment = (hero) => {
 };
 
 
-// Ask for user inputs to create character
+// Ask for user inputs to create main character
 
-// following 5 lines commented out, to change character creation from "user-input based" to programatically based.
+
 let name = prompt('What is your character name?');
 let characterRole = prompt('What is your class? (warrior, hunter or rogue)');
 const mainHero = new Hero(name, 100, skills= undefined, characterRole);
@@ -150,10 +150,11 @@ mainHero.equippedWeapon = ({
     maxDamage: 6 
 });
 
-console.log(mainHero); 
+const mainParty = [mainHero]; // add main character (mainHero) to a party array
+
+// Declare the Follower to the main character
 
 const mainFollower = new Hero('Thor', 100, skills= {sneak: 5, attack: 4, persuade: 3}, 'rogue', equippedWeapon= {name: 'Sword', minDamage: 3, maxDamage: 7}, armorType= {name: 'leather', mitigation: 5});
-
 
 // Testing returns below:
 // let tiptoe = mainHero.characterSneak();
@@ -164,5 +165,11 @@ const mainFollower = new Hero('Thor', 100, skills= {sneak: 5, attack: 4, persuad
 // console.log(tiptoe, blow, smile, hit, level);
 // mainHero.newEquippedWeapon('broadsword', 5, 9);
 // mainHero.newEquippedArmor('chainmail', 8);
+// console.log(mainHero); 
+// console.log(mainFollower); 
 
-console.log(mainFollower); 
+mainParty.push (mainFollower);
+
+console.log(mainParty);
+
+
