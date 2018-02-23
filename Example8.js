@@ -30,7 +30,7 @@ class Monster extends baseCharacter {
         }
     }
     characterDamage () {
-        let damageValue= (Math.floor(Math.random()*this.maxDamage)+this.minDamage);
+        let damageValue= this.minDamage + (Math.floor(Math.random()* (this.maxDamage-this.minDamage+1)));
         return damageValue;
     }
 }
@@ -45,6 +45,7 @@ class Hero extends baseCharacter {
         this.characterRole = characterRole;
         this.equippedWeapon = equippedWeapon;
         this.armorType= armorType;
+        this.isIncapacitated = false;
         this.barriers = {
             attack : 10,
             sneak : 10,
@@ -75,6 +76,15 @@ class Hero extends baseCharacter {
         this.equippedWeapon.minDamage = minDamage;
         this.equippedWeapon.maxDamage = maxDamage;
         console.log(this.name + ' has equipped a new '+ name);
+    }
+    newEquippedArmor (name, mitigation) {
+        this.armorType.name = name;
+        this.armorType.mitigation = mitigation;
+        console.log(this.name + ' has equipped a new '+ name);
+    }
+    rest() {
+        this.isIncapacitated = false;
+        this.currentHealth = this.maxHealth;
     }
 };
 
@@ -157,4 +167,5 @@ let hit = mainHero.characterDamage();
 let level= mainHero.characterLevelUp(mainHero);
 console.log(tiptoe, blow, smile, hit, level);
 mainHero.newEquippedWeapon('broadsword', 5, 9);
+mainHero.newEquippedArmor('chainmail', 8);
 console.log(mainHero); 
