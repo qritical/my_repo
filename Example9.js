@@ -169,9 +169,9 @@ const mainFollower = new Hero('Thor', 100, skills= {sneak: 5, attack: 4, persuad
 mainParty.push (mainFollower); // add the main follower to the party array.
 
 //Declare and create a monster
-const monster1 = new Monster(name= 'goblin1', health=100, skills= {sneak: 3, attack: 3, persuade: 3}, persuasionBarrier= 5, sneakBarrier= 5, minDamage= 1, maxDamage= 7);
-const monster2 = new Monster(name= 'goblin2', health=100, skills= {sneak: 3, attack: 3, persuade: 3}, persuasionBarrier= 5, sneakBarrier= 5, minDamage= 1, maxDamage= 7);
-const monster3 = new Monster(name= 'goblin3', health=100, skills= {sneak: 3, attack: 3, persuade: 3}, persuasionBarrier= 5, sneakBarrier= 5, minDamage= 1, maxDamage= 7);
+const monster1 = new Monster(name= 'goblin1', health=100, skills= {sneak: 3, attack: 3, persuade: 3}, persuasionBarrier= 7, sneakBarrier= 5, minDamage= 1, maxDamage= 7);
+const monster2 = new Monster(name= 'goblin2', health=100, skills= {sneak: 3, attack: 3, persuade: 3}, persuasionBarrier= 8, sneakBarrier= 5, minDamage= 1, maxDamage= 7);
+const monster3 = new Monster(name= 'goblin3', health=100, skills= {sneak: 3, attack: 3, persuade: 3}, persuasionBarrier= 9, sneakBarrier= 5, minDamage= 1, maxDamage= 7);
 const monsterParty = [monster1, monster2, monster3];
 
 // console.log(monster1);
@@ -179,22 +179,17 @@ const monsterParty = [monster1, monster2, monster3];
 
 // Make a function to sneak
 
-const sneakAttempt =() => {
+const sneakEncounter =(partySneak=monsterSneak=0) => {
     mainParty.forEach(element => {
-    x=x+(element.skills.sneak);
+    partySneak=partySneak+(element.characterSneak());
     });
-console.log(x);
+console.log(partySneak);
     monsterParty.forEach(element => {
-    y=y+(element.sneakBarrier);
+    monsterSneak=monsterSneak+(element.sneakBarrier);
     });
-console.log(y);
-     if (x > y) {
-    return "positive";
-        } else {
-    return "NOT positive";
-        }
-
+console.log(monsterSneak);
+     return partySneak >= monsterSneak; 
 };
 
-//sneakAttempt(x=0);
-console.log(sneakAttempt(x=y=0));
+
+console.log(sneakEncounter());
