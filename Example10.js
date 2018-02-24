@@ -7,13 +7,14 @@ class baseCharacter {
         this.name = name;
         this.maxHealth = health;
         this.currentHealth = health;
+        this.isIncapacitated = false;
         this.skills = skills;
     }
     characterAttack () {
         let attackValue= (Math.floor(Math.random()*20)+1)+ this.skills.attack;
         return attackValue;
     }
-};
+}
 
 // Define Monster class
 
@@ -25,7 +26,7 @@ class Monster extends baseCharacter {
         this.equippedWeapon = {
             minDamage: minDamage,
             maxDamage: maxDamage
-        }
+        };
     }
     characterDamage () {
         let damageValue= this.minDamage + (Math.floor(Math.random()* (this.maxDamage-this.minDamage+1)));
@@ -43,7 +44,6 @@ class Hero extends baseCharacter {
         this.characterRole = characterRole;
         this.equippedWeapon = equippedWeapon;
         this.armorType= armorType;
-        this.isIncapacitated = false;
         this.barriers = {
             attack : 10,
             sneak : 10,
@@ -66,7 +66,7 @@ class Hero extends baseCharacter {
         hero.skills.attack ++;
         hero.skills.persuade ++;
         hero.skills.sneak ++;
-        let newLevel = hero.skills.attack
+        let newLevel = hero.skills.attack;
         return newLevel;
     }
     newEquippedWeapon (name, minDamage, maxDamage) {
@@ -84,7 +84,7 @@ class Hero extends baseCharacter {
         this.isIncapacitated = false;
         this.currentHealth = this.maxHealth;
     }
-};
+}
 
 // Assign values based on user input, i.e. character class specific values
 
@@ -155,7 +155,7 @@ const mainParty = [mainHero]; // create mainParty array and add main character (
 const mainFollower = new Hero('Thor', 100, skills= {sneak: 5, attack: 4, persuade: 3}, 'rogue', equippedWeapon= {name: 'Sword', minDamage: 3, maxDamage: 7}, armorType= {name: 'leather', mitigation: 5});
 
 // Testing returns below:
-// let tiptoe = mainHero.characterSneak();
+// let tiptoe = mainHero.chaacterSneak();
 // let blow = mainHero.characterAttack();
 // let smile = mainHero.characterPersuade();
 // let hit = mainHero.characterDamage();
@@ -169,9 +169,9 @@ const mainFollower = new Hero('Thor', 100, skills= {sneak: 5, attack: 4, persuad
 mainParty.push (mainFollower); // add the main follower to the party array.
 
 //Declare and create a monster
-const monster1 = new Monster(name= 'goblin1', health=100, skills= {sneak: 3, attack: 3, persuade: 3}, persuasionBarrier= 7, sneakBarrier= 5, minDamage= 1, maxDamage= 7);
-const monster2 = new Monster(name= 'goblin2', health=100, skills= {sneak: 3, attack: 3, persuade: 3}, persuasionBarrier= 8, sneakBarrier= 5, minDamage= 1, maxDamage= 7);
-const monster3 = new Monster(name= 'goblin3', health=100, skills= {sneak: 3, attack: 3, persuade: 3}, persuasionBarrier= 9, sneakBarrier= 5, minDamage= 1, maxDamage= 7);
+const monster1 = new Monster(name= 'goblin1', health=100, skills= {sneak: 3, attack: 3, persuade: 3}, persuasionBarrier= 5, sneakBarrier= 5, minDamage= 1, maxDamage= 7);
+const monster2 = new Monster(name= 'goblin2', health=100, skills= {sneak: 3, attack: 3, persuade: 3}, persuasionBarrier= 5, sneakBarrier= 5, minDamage= 1, maxDamage= 7);
+const monster3 = new Monster(name= 'goblin3', health=100, skills= {sneak: 3, attack: 3, persuade: 3}, persuasionBarrier= 5, sneakBarrier= 5, minDamage= 1, maxDamage= 7);
 const monsterParty = [monster1, monster2, monster3];
 
 // console.log(monster1);
@@ -193,3 +193,68 @@ console.log(monsterSneak);
 
 
 console.log(sneakEncounter());
+
+// main fightEncounter function
+const fightEncounter = (heroes, enemies, starter) => {
+    // start with a roll of a dice (1-2) to see who starts attacking - either heroes or enemies.
+    let startParty= Math.floor(Math.random()*2);  //rolls a number between 1 and2
+    
+    // assign either heroes or monsters to start, depending on the dice roll above
+    switch (startParty) {
+        case 1: // if the dice roll = 1 the heroes wil attack first
+            attackers = heroes;
+            defenders = enemies;
+            numberOfAttackers = mainParty.length;  // count number of heroes in the heroes party
+            numerOfDefenders = monsterParty.length; // count number of mobs in the monster party
+            break;
+        default: // if the dice roll was 2, the monsters will attack first
+            attackers = enemies;
+            defenders = heroes;
+            numberOfAttackers = monsterParty.length;  // count number of mobs in the monster party
+            numerOfDefenders = mainParty.length; // count number of heroes in the heroes party        
+            break;
+    }
+    
+        // create a function to count dead attackers
+    const countAttackers = (attackersIncapacitated=0) => {
+        attackers.forEach(element => {
+            if (element.isIncapacitated===true) {
+            attackersIncapacitated ++};
+        });
+        return attackersIncapacitated;
+    };  // and a function to count all dead defenders
+        const countDefenders = (defendersIncapacitated=0) => {
+        defenders.forEach(element => {
+            if (element.isIncapacitated===true) {
+            defendersIncapacitated ++};
+        });
+        return defendersIncapacitated;
+    };
+    
+    // call two functions to count dead attackers/defenders and set a variable to hold the humber of dead attackers, if any
+    attackersIncapacitated = countAttackers();
+    defendersIncapacitated = countDefenders();
+    // check to see that there are still attackers alive, as well as defenders alive.
+    if (attackersIncapacitated < numberOfAttackers) {
+        if (defendersIncapacitated < numerOfDefenders) {
+            //create two new arrays - a new attacker and a new defenders array with all those not incapacitated
+            let defendersAlive= defenders.filter(element => element.isIncapacitated===false); // new array with capable defenders
+            let attackersAlive= attackers.filter(element => element.isIncapacitated===false); // new array with capable attackers
+            let defenderIndex= (Math.floor(Math.random()*defendersAlive.length)); // generate a random number amongst those defenders able to fight
+            let defender = defendersAlive[defenderIndex]; // pick a defender
+            let attackerIndex=(Math.floor(Math.random()*attackersAlive.length)); // generate a random number amongst those attackers able to fight
+            let attacker= attackersAlive[attackerIndex]; // pick the attacker
+            console.log(attacker.name,defender.name);
+            attackResult = attacker.characterAttack()-defender.mitigation;
+            console.log(attackResult)
+        }
+    }
+      
+                                                 
+   
+
+
+    console.log(attackersIncapacitated, numberOfAttackers, defendersIncapacitated, numerOfDefenders);
+};
+//monsterParty[1].isIncapacitated = true;
+fightEncounter (mainParty, monsterParty);
