@@ -1,6 +1,4 @@
 
-
-
 // CHARACTER CREATION SECTION ******************************************************
 
 
@@ -138,22 +136,22 @@ const armorAssignment = (hero) => {
 // Ask for user inputs to create main character
 
 
-let name = prompt('What is your character name?');
-let characterRole = prompt('What is your class? (warrior, hunter or rogue)');
-const mainHero = new Hero(name, 100, skills= undefined, characterRole);
-checkClass(mainHero, mainHero.characterRole);
-armorAssignment (mainHero, mainHero.characterRole);
+// let name = prompt('What is your character name?');
+// let characterRole = prompt('What is your class? (warrior, hunter or rogue)');
+// const mainHero = new Hero(name, 100, skills= undefined, characterRole);
+// checkClass(mainHero, mainHero.characterRole);
+// armorAssignment (mainHero, mainHero.characterRole);
 
-mainHero.equippedWeapon = ({
-    name: prompt('which weapon do you choose? (Sword, Axe, Polearm)'),
-    minDamage: 1,
-    maxDamage: 6 
-});
+// mainHero.equippedWeapon = ({
+//     name: prompt('which weapon do you choose? (Sword, Axe, Polearm)'),
+//     minDamage: 1,
+//     maxDamage: 6 
+// });
+const mainHero = new Hero('Tom', 100, skills= {sneak: 4, attack: 2, persuade: 5}, 'hunter', equippedWeapon= {name: 'Axe', minDamage: 2, maxDamage: 8}, armorType= {name: 'mail', mitigation: 7});
 
-const mainParty = [mainHero]; // add main character (mainHero) to a party array
+const mainParty = [mainHero]; // create mainParty array and add main character (mainHero) to the party array.
 
-// Declare the Follower to the main character
-
+// Declare and create the Follower to the main character
 const mainFollower = new Hero('Thor', 100, skills= {sneak: 5, attack: 4, persuade: 3}, 'rogue', equippedWeapon= {name: 'Sword', minDamage: 3, maxDamage: 7}, armorType= {name: 'leather', mitigation: 5});
 
 // Testing returns below:
@@ -168,8 +166,35 @@ const mainFollower = new Hero('Thor', 100, skills= {sneak: 5, attack: 4, persuad
 // console.log(mainHero); 
 // console.log(mainFollower); 
 
-mainParty.push (mainFollower);
+mainParty.push (mainFollower); // add the main follower to the party array.
 
-console.log(mainParty);
+//Declare and create a monster
+const monster1 = new Monster(name= 'goblin1', health=100, skills= {sneak: 3, attack: 3, persuade: 3}, persuasionBarrier= 5, sneakBarrier= 5, minDamage= 1, maxDamage= 7);
+const monster2 = new Monster(name= 'goblin2', health=100, skills= {sneak: 3, attack: 3, persuade: 3}, persuasionBarrier= 5, sneakBarrier= 5, minDamage= 1, maxDamage= 7);
+const monster3 = new Monster(name= 'goblin3', health=100, skills= {sneak: 3, attack: 3, persuade: 3}, persuasionBarrier= 5, sneakBarrier= 5, minDamage= 1, maxDamage= 7);
+const monsterParty = [monster1, monster2, monster3];
+
+// console.log(monster1);
 
 
+// Make a function to sneak
+
+const sneakAttempt =() => {
+    mainParty.forEach(element => {
+    x=x+(element.skills.sneak);
+    });
+console.log(x);
+    monsterParty.forEach(element => {
+    y=y+(element.sneakBarrier);
+    });
+console.log(y);
+     if (x > y) {
+    return "positive";
+        } else {
+    return "NOT positive";
+        }
+
+};
+
+//sneakAttempt(x=0);
+console.log(sneakAttempt(x=y=0));
