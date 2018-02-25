@@ -201,8 +201,9 @@ const fightEncounter = (heroes, enemies, starter) => {      // main fightEncount
     console.log(attackersAlive.length);
 
 
+//**************************** check to see if characters are alive *****************************************************
     
-    // start a loop that runs as long as there are any attackers alive
+// start a loop that runs as long as there are any attackers alive
     while (attackersAlive.length >0) {
         // check to see if there are any defenders alive
         if (defendersAlive.length > 0) {   
@@ -216,34 +217,69 @@ const fightEncounter = (heroes, enemies, starter) => {      // main fightEncount
             let defender = defendersAlive[defenderIndex];      
             let attackerIndex=(Math.floor(Math.random()*attackersAlive.length));
             let attacker= attackersAlive[attackerIndex];  
-      
+ 
+//******************************* attacker attacks ***********************************************************************          
+
             // check attackers attack function against the defenders barrier.skill to see if attack is succesfull
             // break if the array is empty (error encountered)
             try {attackResult = attacker.characterAttack()-defender.barriers.attack;   
             } catch (error) {
                 break;
             } 
-            
-            if (attackResult>0) {                               // if the result is positive it is a hit, else if negative it is a miss
+
+            // check if attackResult is greater than zero: if the result is positive it is a hit, else if negative it is a miss
+            if (attackResult>0) {                               
                 let damageValue = attacker.characterDamage();   // if it is a hit, the damage function is called, giving the damage done
                 defender.currentHealth -= damageValue;          // the target looses the amount of health done by the damage
-
-                    attackLog = attacker.name + ' swings and hits ' + defender.name + ' for ' + damageValue + ' hitpoints';
+                console.log(damageValue);
+                // provide some user feedback about damage done
+                attackLog = attacker.name + ' swings and hits ' + defender.name + ' for ' + damageValue + ' hitpoints'; 
                 
+                // check to see if the attack killed the defender (did current health drop below 0?)
                 if (defender.currentHealth <= 0) {
                     defender.isIncapacitated = true;
                     console.log(defender.name + ' dies!');
                 }
-            }   
-            else {                                        // if the result is not positive, the attack misses, and no health is lost, just give user feedback about the miss
+            }  
+            // the attack missed, and no health is lost, just give user feedback about the miss
+            else {                                        
                     attackLog = attacker.name + ' swings at ' + defender.name + ' and misses!';
             }  
-           
             console.log(attackLog);  // provide some user feedback from the attack
-        }
+
+//****************************** defenders hit back ***************************************************************************
+
+            // check defenders attack function against the attackers barrier.skill to see if attack is succesfull
+            // break if the array is empty (error encountered)
+            try {defenceResult = defender.characterAttack()-attacker.barriers.attack;   
+            } catch (error) {
+                break;
+            } 
+
+            // check if attackResult is greater than zero: if the result is positive it is a hit, else if negative it is a miss
+            if (defenceResult>0) {                               
+                let defenceValue = defender.characterDamage();    // if it is a hit, the damage function is called, giving the damage done
+                attacker.currentHealth -= defenceValue;          // the target looses the amount of health done by the damage
+                console.log(defenceValue);
+
+                    defenceLog = defender.name + ' strikes back and hits ' + attacker.name + ' for ' + defenceValue + ' hitpoints'; // provide some user feedback about damage done
+                
+                // check to see if the attack killed the attacker (did current health drop below 0?)
+                if (attacker.currentHealth <= 0) {
+                    attacker.isIncapacitated = true;
+                    console.log(attacker.name + ' dies!');
+                }
+            }  
+            // the attack missed, and no health is lost, just give user feedback about the miss
+            else {                                        
+                    defenceLog = defender.name + ' strikes back at ' + attacker.name + ' and misses!';
+            }  
+             
+        }console.log(defenceLog);  // provide some user feedback from the attack
     }    
-};
-
+};  
+  
 fightEncounter (mainParty, monsterParty);
+console.log (mainParty, monsterParty);
 
- 
+  
