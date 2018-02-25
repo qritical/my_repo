@@ -196,13 +196,13 @@ const fightEncounter = (heroes, enemies, starter) => {
             attackers = heroes;
             defenders = enemies;
             numberOfAttackers = mainParty.length;  // count number of heroes in the heroes party
-            numerOfDefenders = monsterParty.length; // count number of mobs in the monster party
+            numberOfDefenders = monsterParty.length; // count number of mobs in the monster party
             break;
         default: // if the dice roll was 2, the monsters will attack first
             attackers = enemies;
             defenders = heroes;
             numberOfAttackers = monsterParty.length;  // count number of mobs in the monster party
-            numerOfDefenders = mainParty.length; // count number of heroes in the heroes party        
+            numberOfDefenders = mainParty.length; // count number of heroes in the heroes party        
             break;
     }
     
@@ -226,13 +226,15 @@ const fightEncounter = (heroes, enemies, starter) => {
     attackersIncapacitated = countAttackers();
     defendersIncapacitated = countDefenders();
     
-    
+                 
     // check to see that there are still attackers alive, as well as defenders alive.
     console.log((attackersIncapacitated < numberOfAttackers));
     while (attackersIncapacitated < numberOfAttackers) {
-        while (defendersIncapacitated < numerOfDefenders) {
-    
-    
+        console.log((attackersIncapacitated < numberOfAttackers));
+        console.log((defendersIncapacitated < numberOfDefenders));
+        while (defendersIncapacitated < numberOfDefenders) {
+            console.log((defendersIncapacitated < numberOfDefenders));
+             
     
             //create two new arrays - a new attacker and a new defenders array with all those not incapacitated
             let defendersAlive= defenders.filter(element => element.isIncapacitated===false); // new array with capable defenders
@@ -251,22 +253,24 @@ const fightEncounter = (heroes, enemies, starter) => {
             if (attackResult>0) {                               // if the result is positive it is a hit, else if negative it is a miss
                 let damageValue = attacker.characterDamage();   // if it is a hit, the damage function is called, giving the damage done
                 defender.currentHealth -= damageValue;          // the target looses the amount of health done by the damage
+                attackLog = attacker.name + ' swings and hits ' + defender.name + ' for ' + damageValue + ' hitpoints';
+                console.log(attackLog);
                 if (defender.currentHealth <= 0) {
                     defender.isIncapacitated = true;
                     console.log(defender.name + ' dies!');
                 }
-                attackLog = attacker.name + ' swings and hits ' + defender.name + ' for ' + damageValue + ' hitpoints';
-                } else {                                        // if the result is not positive, the attack misses, and no health is lost
+                
+                }   else {                                        // if the result is not positive, the attack misses, and no health is lost
                 attackLog = attacker.name + ' swings at ' + defender.name + ' and misses!';
             } 
-            console.log(attackLog);
+            
             console.log (defender.currentHealth);
         }          
     }    
   
     console.log(attackersIncapacitated, numberOfAttackers, defendersIncapacitated, numerOfDefenders);
 };
-monsterParty[1].isIncapacitated = true;
+// monsterParty[1].isIncapacitated = true;
 fightEncounter (mainParty, monsterParty);
 
  // need to get turn based so the mobs hit back
