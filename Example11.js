@@ -225,13 +225,23 @@ const fightEncounter = (heroes, enemies, starter) => {
     // call two functions to count dead attackers/defenders and set a variable to hold the humber of dead attackers, if any
     attackersIncapacitated = countAttackers();
     defendersIncapacitated = countDefenders();
+    
+    
     // check to see that there are still attackers alive, as well as defenders alive.
     console.log((attackersIncapacitated < numberOfAttackers));
     while (attackersIncapacitated < numberOfAttackers) {
         while (defendersIncapacitated < numerOfDefenders) {
-    //create two new arrays - a new attacker and a new defenders array with all those not incapacitated
+    
+    
+    
+            //create two new arrays - a new attacker and a new defenders array with all those not incapacitated
             let defendersAlive= defenders.filter(element => element.isIncapacitated===false); // new array with capable defenders
             let attackersAlive= attackers.filter(element => element.isIncapacitated===false); // new array with capable attackers
+            // if (defendersAlive.length === 0) {
+            //     break;
+            // }   
+       
+            //if (attackersAlive.length === 0) break;
             let defenderIndex= (Math.floor(Math.random()*defendersAlive.length)); // generate a random number amongst those defenders able to fight
             let defender = defendersAlive[defenderIndex];       // pick a defender
             let attackerIndex=(Math.floor(Math.random()*attackersAlive.length)); // generate a random number amongst those attackers able to fight
@@ -251,13 +261,13 @@ const fightEncounter = (heroes, enemies, starter) => {
             } 
             console.log(attackLog);
             console.log (defender.currentHealth);
-        }         
-    }        
-    
- 
+        }          
+    }    
+  
     console.log(attackersIncapacitated, numberOfAttackers, defendersIncapacitated, numerOfDefenders);
 };
 monsterParty[1].isIncapacitated = true;
 fightEncounter (mainParty, monsterParty);
 
  // need to get turn based so the mobs hit back
+
